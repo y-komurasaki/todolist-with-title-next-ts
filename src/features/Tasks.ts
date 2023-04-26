@@ -41,8 +41,19 @@ const tasksSlice = createSlice({
         contents: [],
       });
     },
+    editTaskList: (
+      state,
+      action: PayloadAction<{ listId: string; editListTitleText: string }>
+    ) => {
+      const { listId, editListTitleText } = action.payload;
+      state.taskLists = state.taskLists.map((taskList) =>
+        taskList.listId === listId
+          ? { ...taskList, title: editListTitleText }
+          : taskList
+      );
+    },
   },
 });
 
-export const { addTaskList } = tasksSlice.actions;
+export const { addTaskList, editTaskList } = tasksSlice.actions;
 export default tasksSlice.reducer;
