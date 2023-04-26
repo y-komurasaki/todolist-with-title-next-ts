@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import DeleteTaskList from "./DeleteTaskList";
 import EditTaskList from "./EditTaskList";
 
 interface List {
@@ -19,6 +20,7 @@ const TaskLists = (): JSX.Element => {
         <div key={list.listId} className="taskList">
           <div className="taskListTitles">
             <EditTaskList list={list} />
+            <DeleteTaskList list={list} />
           </div>
         </div>
       ))}
