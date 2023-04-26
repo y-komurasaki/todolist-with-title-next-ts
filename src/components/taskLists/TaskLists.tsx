@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
 interface List {
-  listId: number;
+  listId: string;
   title: string;
 }
 

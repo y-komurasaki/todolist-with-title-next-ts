@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Task {
-  id: number;
+  id: string;
   text: string;
   completed?: boolean;
 }
 
 interface TaskList {
   title: string;
-  listId: number;
+  listId: string;
   contents: Task[];
 }
 
@@ -20,8 +20,8 @@ const initialState: TasksState = {
   taskLists: [
     {
       title: "test",
-      listId: 0,
-      contents: [{ id: 0, text: "test", completed: undefined }],
+      listId: "0",
+      contents: [{ id: "0", text: "test", completed: undefined }],
     },
   ],
 };
@@ -32,12 +32,12 @@ const tasksSlice = createSlice({
   reducers: {
     addTaskList: (
       state,
-      action: PayloadAction<{ newTitleText: string; listId: number }>
+      action: PayloadAction<{ title: string; listId: string }>
     ) => {
-      const { newTitleText, listId } = action.payload;
+      const { title, listId } = action.payload;
       state.taskLists.push({
-        title: newTitleText,
-        listId,
+        title: title,
+        listId: listId,
         contents: [],
       });
     },
