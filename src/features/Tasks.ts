@@ -12,7 +12,7 @@ interface TaskList {
   contents: Task[];
 }
 
-interface TasksState {
+export interface TasksState {
   taskLists: TaskList[];
 }
 
@@ -58,8 +58,28 @@ const tasksSlice = createSlice({
         (taskList) => taskList.listId !== listId
       );
     },
+    addTask: (
+      state,
+      action: PayloadAction<{
+        listId: string;
+        taskId: string;
+        newTaskText: string;
+      }>
+    ) => {
+      const { listId, taskId, newTaskText } = action.payload;
+      state.taskLists = state.taskLists.map((taskList) => {
+        if (taskList.listId === listId) {
+          return {
+            ...taskList,
+            contents: [...taskList.contents, { id: taskId, text: newTaskText }],
+          };
+        }
+        return taskList;
+      });
+    },
   },
 });
 
-export const { addTaskList, editTaskList, deleteTaskList } = tasksSlice.actions;
+export const { addTaskList, editTaskList, deleteTaskList, addTask } =
+  tasksSlice.actions;
 export default tasksSlice.reducer;
