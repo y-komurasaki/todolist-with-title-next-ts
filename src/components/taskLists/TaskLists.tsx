@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import DisplayTasks from "../tasks/DisplayTasks";
 import DeleteTaskList from "./DeleteTaskList";
 import EditTaskList from "./EditTaskList";
 
@@ -22,6 +23,7 @@ const TaskLists = (): JSX.Element => {
             <EditTaskList list={list} />
             <DeleteTaskList list={list} />
           </div>
+          <DisplayTasks list={list} />
         </div>
       ))}
     </div>
