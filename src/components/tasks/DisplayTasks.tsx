@@ -1,12 +1,13 @@
 import React from "react";
 import AddTask from "./AddTask";
+import EditTask from "./EditTask";
 
-interface Task {
+export interface Task {
   id: string;
   text: string;
 }
 
-interface ListWithTasks {
+export interface ListWithTasks {
   listId: string;
   title: string;
   contents: Task[];
@@ -22,7 +23,7 @@ const DisplayTasks: React.FC<DisplayTasksProps> = ({ list }) => {
       <AddTask list={list} />
       {list.contents.map((task) => (
         <div key={task.id} className="task">
-          {task.text}
+          <EditTask list={list} task={task} />
         </div>
       ))}
     </div>

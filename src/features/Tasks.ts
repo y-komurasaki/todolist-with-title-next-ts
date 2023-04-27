@@ -77,9 +77,29 @@ const tasksSlice = createSlice({
         return taskList;
       });
     },
+
+    editTask: (
+      state,
+      action: PayloadAction<{
+        listId: string;
+        taskId: string;
+        editText: string;
+      }>
+    ) => {
+      const { listId, taskId, editText } = action.payload;
+      state.taskLists = state.taskLists.map((taskList) => {
+        if (taskList.listId === listId) {
+          const editContents = taskList.contents.map((task) =>
+            task.id === taskId ? { ...task, text: editText } : task
+          );
+          return { ...taskList, contents: editContents };
+        }
+        return taskList;
+      });
+    },
   },
 });
 
-export const { addTaskList, editTaskList, deleteTaskList, addTask } =
+export const { addTaskList, editTaskList, deleteTaskList, addTask, editTask } =
   tasksSlice.actions;
 export default tasksSlice.reducer;
