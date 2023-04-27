@@ -97,9 +97,34 @@ const tasksSlice = createSlice({
         return taskList;
       });
     },
+    checkedTask: (
+      state,
+      action: PayloadAction<{
+        listId: string;
+        taskId: string;
+        taskCompleted: boolean;
+      }>
+    ) => {
+      const { listId, taskId, taskCompleted } = action.payload;
+
+      state.taskLists = state.taskLists.map((taskList) => {
+        if (taskList.listId === listId) {
+          taskList.contents = taskList.contents.map((task) =>
+            task.id === taskId ? { ...task, completed: !taskCompleted } : task
+          );
+        }
+        return taskList;
+      });
+    },
   },
 });
 
-export const { addTaskList, editTaskList, deleteTaskList, addTask, editTask } =
-  tasksSlice.actions;
+export const {
+  addTaskList,
+  editTaskList,
+  deleteTaskList,
+  addTask,
+  editTask,
+  checkedTask,
+} = tasksSlice.actions;
 export default tasksSlice.reducer;
