@@ -1,25 +1,11 @@
-import Head from "next/head";
-import styles from "@/styles/Home.module.css";
-import { useSelector } from "react-redux";
+import AddTaskList from "@/components/taskLists/AddTaskList";
+import TaskLists from "@/components/taskLists/TaskLists";
 
-interface Task {
-  listId: number;
-  title: string;
-}
-
-interface TaskList {
-  taskLists: Task[];
-}
-
-export default function Home(): JSX.Element {
-  const tasks = useSelector((state: { tasks: TaskList }) => state.tasks);
+export default function Home() {
   return (
-    <div className="taskLists">
-      {tasks.taskLists.map((list) => (
-        <div key={list.listId} className="taskList">
-          {list.title}
-        </div>
-      ))}
+    <div>
+      <AddTaskList />
+      <TaskLists />
     </div>
   );
 }
