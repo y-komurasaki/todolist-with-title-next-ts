@@ -1,6 +1,7 @@
 import React from "react";
 import AddTask from "./AddTask";
 import CheckedTask from "./CheckedTask";
+import DeleteTask from "./DeleteTask";
 import EditTask from "./EditTask";
 
 export interface Task {
@@ -26,6 +27,7 @@ const DisplayTasks: React.FC<DisplayTasksProps> = ({ list }) => {
         <div key={task.id} className="task">
           <CheckedTask list={list} task={task} />
           <EditTask list={list} task={task} />
+          <DeleteTask list={list} task={task} />
         </div>
       ))}
     </div>

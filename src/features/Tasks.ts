@@ -116,6 +116,25 @@ const tasksSlice = createSlice({
         return taskList;
       });
     },
+
+    deleteTask: (
+      state,
+      action: PayloadAction<{
+        listId: string;
+        taskId: string;
+      }>
+    ) => {
+      const { listId, taskId } = action.payload;
+      state.taskLists = state.taskLists.map((taskList) => {
+        if (taskList.listId === listId) {
+          const deleteContents = taskList.contents.filter(
+            (task) => task.id !== taskId
+          );
+          return { ...taskList, contents: deleteContents };
+        }
+        return taskList;
+      });
+    },
   },
 });
 
@@ -126,5 +145,6 @@ export const {
   addTask,
   editTask,
   checkedTask,
+  deleteTask,
 } = tasksSlice.actions;
 export default tasksSlice.reducer;
