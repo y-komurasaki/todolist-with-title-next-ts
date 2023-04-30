@@ -32,10 +32,10 @@ const AddTaskList = () => {
       />
 
       <button
-        className="text-4xl h-0 bg-transparent hover:text-green-500"
+        className="text-4xl h-0  hover:text-green-500"
         onClick={addTaskListClick}
       >
-        <BsFillPlusSquareFill className="hover:shadow-md transform hover:translate-y-1 translate-x-1 transition duration-200" />
+        <BsFillPlusSquareFill className="hover:translate-y-1 translate-x-1 transition duration-200" />
       </button>
     </div>
   );

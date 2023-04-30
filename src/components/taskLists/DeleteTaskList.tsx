@@ -20,10 +20,10 @@ const DeleteTaskList = ({ list }: Props): JSX.Element => {
 
   return (
     <button
-      className="text-2xl bg-transparent hover:text-red-500"
+      className="text-2xl  hover:text-red-500"
       onClick={deleteTaskListClick}
     >
-      <FaTrashAlt className=" hover:shadow-md transform hover:translate-y-1 translate-x-1 transition duration-200" />
+      <FaTrashAlt className=" hover:translate-y-1 translate-x-1 transition duration-200" />
     </button>
   );
 };

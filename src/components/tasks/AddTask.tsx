@@ -76,7 +76,7 @@ const AddTask: React.FC<AddTaskProps> = ({ list }) => {
         className="text-2xl h-1 ml-2 hover:text-green-500"
         onClick={addTaskClick}
       >
-        <BsPencilSquare className=" hover:shadow-md transform hover:translate-y-1 translate-x-1 transition duration-200" />
+        <BsPencilSquare className=" hover:translate-y-1 translate-x-1 transition duration-200" />
       </button>
     </div>
   );
