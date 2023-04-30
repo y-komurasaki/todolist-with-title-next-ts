@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { addTaskList } from "@/features/Tasks";
@@ -7,10 +7,28 @@ import { BsFillPlusSquareFill } from "react-icons/bs";
 const AddTaskList = () => {
   const [newListTitleText, setNewListTitleText] = useState("");
   const dispatch = useDispatch();
+  const taskLists = useSelector((state) => state.tasks.taskLists);
 
   const addTaskListClick = () => {
-    if (newListTitleText === "" || newListTitleText.match(/[ｦ-ﾟ０-９]+/))
+    if (newListTitleText === "") {
+      alert("文字が未入力です。");
       return;
+    }
+
+    if (newListTitleText.match(/[ｦ-ﾟ０-９]+/)) {
+      alert("半角カナ又は全角英数字が含まれています。");
+      return;
+    }
+
+    const duplicateTaskList = taskLists.some(
+      (list) => list.title === newListTitleText
+    );
+
+    if (duplicateTaskList) {
+      alert("同じタイトルのタスクリストが既に存在します。");
+      return;
+    }
+
     const listId = uuidv4();
     dispatch(
       addTaskList({

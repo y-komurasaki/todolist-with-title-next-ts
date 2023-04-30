@@ -29,17 +29,21 @@ const AddTask: React.FC<AddTaskProps> = ({ list }) => {
   const [newTaskText, setNewTaskText] = useState<TaskText>({});
 
   const addTaskClick = () => {
-    if (
-      newTaskText[list.listId] === "" ||
-      newTaskText[list.listId].match(/[ｦ-ﾟ０-９]+/)
-    )
+    if (newTaskText[list.listId] === "") {
+      alert("文字が未入力です。");
       return;
+    }
 
-    const isExistingTask = tasks.taskLists.some((list: ListWithTasks) =>
+    if (newTaskText[list.listId].match(/[ｦ-ﾟ０-９]+/)) {
+      alert("半角カナ又は全角英数字が含まれています。");
+      return;
+    }
+    const duplicateTask = tasks.taskLists.some((list: ListWithTasks) =>
       list.contents.some((task: Task) => task.text === newTaskText[list.listId])
     );
 
-    if (isExistingTask) {
+    if (duplicateTask) {
+      alert("同じタスクが既に存在します。");
       return;
     }
 
