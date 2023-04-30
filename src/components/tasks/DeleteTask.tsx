@@ -16,8 +16,11 @@ const DeleteTask: React.FC<DeleteTaskProps> = ({ list, task }) => {
   };
 
   return (
-    <button className="taskDeleteButton" onClick={deleteTaskClick}>
-      <FaTrashAlt />
+    <button
+      className=" bg-transparent hover:text-red-500"
+      onClick={deleteTaskClick}
+    >
+      <FaTrashAlt className=" hover:shadow-md transform hover:translate-y-1 translate-x-1 transition duration-200" />
     </button>
   );
 };

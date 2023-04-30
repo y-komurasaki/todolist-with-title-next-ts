@@ -19,8 +19,11 @@ const DeleteTaskList = ({ list }: Props): JSX.Element => {
   };
 
   return (
-    <button className="listDeleteButton" onClick={deleteTaskListClick}>
-      <FaTrashAlt />
+    <button
+      className="text-2xl bg-transparent hover:text-red-500"
+      onClick={deleteTaskListClick}
+    >
+      <FaTrashAlt className=" hover:shadow-md transform hover:translate-y-1 translate-x-1 transition duration-200" />
     </button>
   );
 };

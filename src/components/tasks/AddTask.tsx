@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { addTask, TasksState } from "../../features/Tasks";
-import { BsFillPlusSquareFill } from "react-icons/bs";
+import { BsPencilSquare } from "react-icons/bs";
 
 interface Task {
   id: string;
@@ -72,8 +72,11 @@ const AddTask: React.FC<AddTaskProps> = ({ list }) => {
         value={newTaskText[list.listId] || ""}
         className="text-1xl text-black-300  text-center mb-5 border border-black "
       />
-      <button className="text-2xl h-2" onClick={addTaskClick}>
-        <BsFillPlusSquareFill />
+      <button
+        className="text-2xl h-1 ml-2 hover:text-green-500"
+        onClick={addTaskClick}
+      >
+        <BsPencilSquare className=" hover:shadow-md transform hover:translate-y-1 translate-x-1 transition duration-200" />
       </button>
     </div>
   );
