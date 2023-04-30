@@ -18,7 +18,7 @@ const TaskLists = (): JSX.Element => {
   return (
     <div className="flex justify-center flex-wrap">
       {tasks.taskLists.map((list) => (
-        <div key={list.listId} className=" p-5 bg-gray-100 shadow-md">
+        <div key={list.listId} className=" p-5 m-5 bg-gray-100 shadow-md">
           <div className="flex justify-center">
             <EditTaskList list={list} />
             <DeleteTaskList list={list} />

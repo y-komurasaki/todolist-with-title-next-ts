@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { deleteTaskList } from "@/features/Tasks";
+import { FaTrashAlt } from "react-icons/fa";
 
 interface List {
   listId: string;
@@ -19,7 +20,7 @@ const DeleteTaskList = ({ list }: Props): JSX.Element => {
 
   return (
     <button className="listDeleteButton" onClick={deleteTaskListClick}>
-      削除
+      <FaTrashAlt />
     </button>
   );
 };
