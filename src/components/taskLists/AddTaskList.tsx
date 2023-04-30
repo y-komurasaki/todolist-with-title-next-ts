@@ -3,20 +3,25 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { addTaskList } from "@/features/Tasks";
 import { BsFillPlusSquareFill } from "react-icons/bs";
+import ErrorMessageModal from "@/modals/ErrorMessageModal";
 
 const AddTaskList = () => {
   const [newListTitleText, setNewListTitleText] = useState("");
+  const [errorModalIsOpen, setErrorModalIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
   const taskLists = useSelector((state) => state.tasks.taskLists);
 
   const addTaskListClick = () => {
     if (newListTitleText === "") {
-      alert("文字が未入力です。");
+      setErrorMessage("リストタイトルが入力されていません。");
+      setErrorModalIsOpen(true);
       return;
     }
 
     if (newListTitleText.match(/[ｦ-ﾟ０-９]+/)) {
-      alert("半角カナ又は全角英数字が含まれています。");
+      setErrorMessage("半角カナ又は全角英数字が含まれています。");
+      setErrorModalIsOpen(true);
       return;
     }
 
@@ -25,7 +30,8 @@ const AddTaskList = () => {
     );
 
     if (duplicateTaskList) {
-      alert("同じタイトルのタスクリストが既に存在します。");
+      setErrorMessage("同じタイトルのタスクリストが既に存在します。");
+      setErrorModalIsOpen(true);
       return;
     }
 
@@ -55,6 +61,15 @@ const AddTaskList = () => {
       >
         <BsFillPlusSquareFill className="hover:translate-y-1 translate-x-1 transition duration-200" />
       </button>
+
+      <ErrorMessageModal
+        modalIsOpen={errorModalIsOpen}
+        closeModal={() => {
+          setErrorModalIsOpen(false);
+          setErrorMessage("");
+        }}
+        errorMessage={errorMessage}
+      />
     </div>
   );
 };

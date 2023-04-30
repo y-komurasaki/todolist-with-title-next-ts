@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { addTask, TasksState } from "../../features/Tasks";
 import { BsPencilSquare } from "react-icons/bs";
+import ErrorMessageModal from "@/modals/ErrorMessageModal";
 
 interface Task {
   id: string;
@@ -27,15 +28,19 @@ const AddTask: React.FC<AddTaskProps> = ({ list }) => {
   const tasks = useSelector((state: TasksState) => state.tasks);
   const dispatch = useDispatch();
   const [newTaskText, setNewTaskText] = useState<TaskText>({});
+  const [errorModalIsOpen, setErrorModalIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const addTaskClick = () => {
     if (newTaskText[list.listId] === "") {
-      alert("文字が未入力です。");
+      setErrorMessage("タスクが入力されていません。");
+      setErrorModalIsOpen(true);
       return;
     }
 
     if (newTaskText[list.listId].match(/[ｦ-ﾟ０-９]+/)) {
-      alert("半角カナ又は全角英数字が含まれています。");
+      setErrorMessage("半角カナ又は全角英数字が含まれています。");
+      setErrorModalIsOpen(true);
       return;
     }
     const duplicateTask = tasks.taskLists.some((list: ListWithTasks) =>
@@ -43,7 +48,8 @@ const AddTask: React.FC<AddTaskProps> = ({ list }) => {
     );
 
     if (duplicateTask) {
-      alert("同じタスクが既に存在します。");
+      setErrorMessage("同じタスクが既に存在します。");
+      setErrorModalIsOpen(true);
       return;
     }
 
@@ -82,6 +88,14 @@ const AddTask: React.FC<AddTaskProps> = ({ list }) => {
       >
         <BsPencilSquare className=" hover:translate-y-1 translate-x-1 transition duration-200" />
       </button>
+      <ErrorMessageModal
+        modalIsOpen={errorModalIsOpen}
+        closeModal={() => {
+          setErrorModalIsOpen(false);
+          setErrorMessage("");
+        }}
+        errorMessage={errorMessage}
+      />
     </div>
   );
 };
