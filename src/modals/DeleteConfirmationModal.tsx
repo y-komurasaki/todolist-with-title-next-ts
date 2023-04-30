@@ -12,6 +12,11 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
   closeModal,
   handleDeleteConfirmation,
 }) => {
+  const handleDeleteClick = () => {
+    handleDeleteConfirmation();
+    closeModal();
+  };
+
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -23,7 +28,7 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
       <div className="flex justify-end">
         <button
           className="bg-red-500 text-white py-2 px-4 rounded mr-4"
-          onClick={handleDeleteConfirmation}
+          onClick={handleDeleteClick}
         >
           削除
         </button>

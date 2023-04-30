@@ -5,14 +5,23 @@ import { addTaskList } from "@/features/Tasks";
 import { BsFillPlusSquareFill } from "react-icons/bs";
 import ErrorMessageModal from "@/modals/ErrorMessageModal";
 
+interface RootState {
+  tasks: {
+    taskLists: {
+      title: string;
+      listId: string;
+    }[];
+  };
+}
+
 const AddTaskList = () => {
   const [newListTitleText, setNewListTitleText] = useState("");
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
-  const taskLists = useSelector((state) => state.tasks.taskLists);
+  const taskLists = useSelector((state: RootState) => state.tasks.taskLists);
 
-  const addTaskListClick = () => {
+  const handleAddTaskListClick = () => {
     if (newListTitleText === "") {
       setErrorMessage("リストタイトルが入力されていません。");
       setErrorModalIsOpen(true);
@@ -46,18 +55,18 @@ const AddTaskList = () => {
   };
 
   return (
-    <div className="flex justify-center m-5 ">
+    <div className="flex justify-center m-5">
       <input
         type="text"
         placeholder="タイトルを入力"
         onChange={(e) => setNewListTitleText(e.target.value)}
         value={newListTitleText}
-        className="text-2xl text-black-500 font-bold text-center mb-5 border border-black "
+        className="text-2xl text-black-500 font-bold text-center mb-5 border border-black"
       />
 
       <button
-        className="text-4xl h-0  hover:text-green-500"
-        onClick={addTaskListClick}
+        className="text-4xl h-0 hover:text-green-500"
+        onClick={handleAddTaskListClick}
       >
         <BsFillPlusSquareFill className="hover:translate-y-1 translate-x-1 transition duration-200" />
       </button>

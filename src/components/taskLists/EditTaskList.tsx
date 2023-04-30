@@ -4,16 +4,16 @@ import { deleteTaskList, editTaskList } from "@/features/Tasks";
 import ErrorMessageModal from "@/modals/ErrorMessageModal";
 import DeleteConfirmationModal from "@/modals/DeleteConfirmationModal";
 
-interface List {
+interface ListProps {
   listId: string;
   title: string;
 }
 
-interface Props {
-  list: List;
+interface EditTaskListProps {
+  list: ListProps;
 }
 
-const EditTaskList = ({ list }: Props): JSX.Element => {
+const EditTaskList = ({ list }: EditTaskListProps): JSX.Element => {
   const [editListTitleText, setEditListTitleText] = useState<string>("");
   const [editListId, setEditListId] = useState<string | null>(null);
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false);
@@ -21,21 +21,23 @@ const EditTaskList = ({ list }: Props): JSX.Element => {
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const dispatch = useDispatch();
   const tasks = useSelector(
-    (state: { tasks: { taskLists: List[] } }) => state.tasks
+    (state: { tasks: { taskLists: ListProps[] } }) => state.tasks
   );
 
-  const editTitleClick = (): void => {
+  const handleEditTitleClick = (): void => {
     setEditListId(list.listId);
     setEditListTitleText(list.title);
   };
 
-  const editTitleTextChange = (
+  const handleEditTitleTextChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
     setEditListTitleText(e.target.value);
   };
 
-  const editTitleDataSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleEditTitleDataSubmit = (
+    e: React.FormEvent<HTMLFormElement>
+  ): void => {
     e.preventDefault();
 
     if (editListTitleText.match(/[ｦ-ﾟ０-９]+/)) {
@@ -80,19 +82,19 @@ const EditTaskList = ({ list }: Props): JSX.Element => {
     <>
       <div
         className="flex justify-center text-2xl p-3 mb-1 text-center font-bold tracking-wider"
-        onClick={editTitleClick}
+        onClick={handleEditTitleClick}
       >
         {editListId === list.listId ? (
-          <form onSubmit={editTitleDataSubmit}>
+          <form onSubmit={handleEditTitleDataSubmit}>
             <input
               type="text"
               id="edit-list-title"
-              onChange={editTitleTextChange}
+              onChange={handleEditTitleTextChange}
               value={editListTitleText}
             />
           </form>
         ) : (
-          <p className="mr-5">{list.title}</p>
+          <p className="mr5">{list.title}</p>
         )}
       </div>
       <ErrorMessageModal
@@ -111,5 +113,4 @@ const EditTaskList = ({ list }: Props): JSX.Element => {
     </>
   );
 };
-
 export default EditTaskList;

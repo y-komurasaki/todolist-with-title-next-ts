@@ -4,20 +4,20 @@ import { FaTrashAlt } from "react-icons/fa";
 import { useState } from "react";
 import DeleteConfirmationModal from "@/modals/DeleteConfirmationModal";
 
-interface List {
+interface ListProps {
   listId: string;
   title: string;
 }
 
-interface Props {
-  list: List;
+interface DeleteTaskListProps {
+  list: ListProps;
 }
 
-const DeleteTaskList = ({ list }: Props): JSX.Element => {
+const DeleteTaskList = ({ list }: DeleteTaskListProps): JSX.Element => {
   const dispatch = useDispatch();
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const deleteTaskListClick = () => {
+  const handleDeleteTaskListClick = () => {
     setModalIsOpen(true);
   };
 
@@ -34,7 +34,7 @@ const DeleteTaskList = ({ list }: Props): JSX.Element => {
     <>
       <button
         className="text-2xl hover:text-red-500"
-        onClick={deleteTaskListClick}
+        onClick={handleDeleteTaskListClick}
       >
         <FaTrashAlt className="hover:translate-y-1 translate-x-1 transition duration-200" />
       </button>

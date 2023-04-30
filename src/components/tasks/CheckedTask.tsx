@@ -10,7 +10,7 @@ interface CheckedTaskProps {
 const CheckedTask: React.FC<CheckedTaskProps> = ({ list, task }) => {
   const dispatch = useDispatch();
 
-  const taskCheckedChange = (
+  const handleTaskCheckedChange = (
     currentListId: string,
     currentTaskId: string,
     taskCompleted: boolean
@@ -29,7 +29,7 @@ const CheckedTask: React.FC<CheckedTaskProps> = ({ list, task }) => {
       type="checkbox"
       defaultChecked={task.completed}
       onChange={(e) =>
-        taskCheckedChange(list.listId, task.id, e.target.checked)
+        handleTaskCheckedChange(list.listId, task.id, e.target.checked)
       }
     />
   );

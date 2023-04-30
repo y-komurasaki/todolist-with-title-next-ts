@@ -14,7 +14,7 @@ const DeleteTask: React.FC<DeleteTaskProps> = ({ list, task }) => {
   const dispatch = useDispatch();
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const deleteTaskClick = () => {
+  const handleDeleteTaskClick = () => {
     setModalIsOpen(true);
   };
 
@@ -23,18 +23,18 @@ const DeleteTask: React.FC<DeleteTaskProps> = ({ list, task }) => {
     setModalIsOpen(false);
   };
 
-  const closeModal = () => {
+  const handleCloseModal = () => {
     setModalIsOpen(false);
   };
 
   return (
     <>
-      <button className="hover:text-red-500" onClick={deleteTaskClick}>
+      <button className="hover:text-red-500" onClick={handleDeleteTaskClick}>
         <FaTrashAlt className="hover:translate-y-1 translate-x-1 transition duration-200" />
       </button>
       <DeleteConfirmationModal
         modalIsOpen={modalIsOpen}
-        closeModal={closeModal}
+        closeModal={handleCloseModal}
         handleDeleteConfirmation={handleDeleteConfirmation}
       />
     </>

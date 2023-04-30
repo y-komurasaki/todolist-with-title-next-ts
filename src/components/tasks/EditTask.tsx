@@ -19,21 +19,20 @@ const EditTask: React.FC<EditTaskProps> = ({ list, task }) => {
   const dispatch = useDispatch();
   const tasks = useSelector((state: TasksState) => state.tasks);
 
-  const editTaskClick = (currentTaskId: string, currentTaskText: string) => {
-    setEditTaskId(currentTaskId);
-    setEditInputTaskText(currentTaskText);
+  const editTaskClick = () => {
+    setEditTaskId(task.id);
+    setEditInputTaskText(task.text);
   };
 
   const editTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEditInputTaskText(e.target.value);
   };
 
-  const editDataSubmit = (
-    e: FormEvent<HTMLFormElement>,
-    currentListId: string,
-    currentTaskId: string
-  ) => {
+  const editDataSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const currentListId = list.listId;
+    const currentTaskId = task.id;
+
     if (editInputTaskText.match(/[ｦ-ﾟ０-９]+/)) {
       setErrorMessage("半角カナ又は全角英数字が含まれています。");
       setErrorModalIsOpen(true);
@@ -62,11 +61,6 @@ const EditTask: React.FC<EditTaskProps> = ({ list, task }) => {
         editText: editInputTaskText,
       })
     );
-    if (editInputTaskText === "") {
-      setEditInputTaskText("");
-      return;
-    }
-
     setEditInputTaskText("");
     setEditTaskId(null);
   };
@@ -78,12 +72,9 @@ const EditTask: React.FC<EditTaskProps> = ({ list, task }) => {
 
   return (
     <>
-      <div
-        onClick={() => editTaskClick(task.id, task.text)}
-        className="taskContents"
-      >
+      <div onClick={editTaskClick} className="taskContents">
         {editTaskId === task.id ? (
-          <form onSubmit={(e) => editDataSubmit(e, list.listId, task.id)}>
+          <form onSubmit={editDataSubmit}>
             <input
               type="text"
               onChange={editTextChange}
@@ -110,5 +101,4 @@ const EditTask: React.FC<EditTaskProps> = ({ list, task }) => {
     </>
   );
 };
-
 export default EditTask;
