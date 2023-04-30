@@ -24,7 +24,10 @@ const DisplayTasks: React.FC<DisplayTasksProps> = ({ list }) => {
     <div className="displayTask">
       <AddTask list={list} />
       {list.contents.map((task) => (
-        <div key={task.id} className="task">
+        <div
+          key={task.id}
+          className="flex justify-between m-5 p-5 bg-gray-100 shadow-md"
+        >
           <CheckedTask list={list} task={task} />
           <EditTask list={list} task={task} />
           <DeleteTask list={list} task={task} />

@@ -58,7 +58,7 @@ const AddTask: React.FC<AddTaskProps> = ({ list }) => {
   };
 
   return (
-    <div className="addTodoContents">
+    <div className="flex justify-center ">
       <input
         type="text"
         placeholder="Todoを入力"
@@ -69,7 +69,7 @@ const AddTask: React.FC<AddTaskProps> = ({ list }) => {
           })
         }
         value={newTaskText[list.listId] || ""}
-        className="inputTodo"
+        className="text-1xl text-black-300  text-center mb-5 border 300 border-black "
       />
       <button className="addTodoButton" onClick={addTaskClick}>
         追加

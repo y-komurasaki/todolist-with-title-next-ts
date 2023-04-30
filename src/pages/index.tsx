@@ -3,7 +3,11 @@ import TaskLists from "@/components/taskLists/TaskLists";
 
 export default function Home() {
   return (
-    <div>
+    <div
+      className="text-align: center;
+    position: relative;
+    z-index: 1"
+    >
       <AddTaskList />
       <TaskLists />
     </div>

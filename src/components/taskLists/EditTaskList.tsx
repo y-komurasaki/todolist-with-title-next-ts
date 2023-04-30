@@ -62,10 +62,12 @@ const EditTaskList = ({ list }: Props): JSX.Element => {
   };
 
   return (
-    <div className="listTitles" onClick={editTitleClick}>
+    <div
+      className="flex justify-center text-2xl p-3 mb-1 text-center font-bold tracking-wider"
+      onClick={editTitleClick}
+    >
       {editListId === list.listId ? (
         <form onSubmit={editTitleDataSubmit}>
-          <label htmlFor="edit-list-title">:</label>
           <input
             type="text"
             id="edit-list-title"
@@ -74,7 +76,7 @@ const EditTaskList = ({ list }: Props): JSX.Element => {
           />
         </form>
       ) : (
-        <p>{list.title}</p>
+        <p className="mr-5">{list.title}</p>
       )}
     </div>
   );
