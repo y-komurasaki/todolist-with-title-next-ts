@@ -21,7 +21,7 @@ const initialState: TasksState = {
     {
       title: "test",
       listId: "0",
-      contents: [{ id: "0", text: "test", completed: undefined }],
+      contents: [{ id: "0", text: "test", completed: false }],
     },
   ],
 };

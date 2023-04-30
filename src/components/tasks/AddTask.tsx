@@ -32,13 +32,16 @@ const AddTask: React.FC<AddTaskProps> = ({ list }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const addTaskClick = () => {
-    if (newTaskText[list.listId] === "") {
+    if (!newTaskText[list.listId] || newTaskText[list.listId].trim() === "") {
       setErrorMessage("タスクが入力されていません。");
       setErrorModalIsOpen(true);
       return;
     }
 
-    if (newTaskText[list.listId].match(/[ｦ-ﾟ０-９]+/)) {
+    if (
+      newTaskText[list.listId] &&
+      newTaskText[list.listId].match(/[ｦ-ﾟ０-９]+/)
+    ) {
       setErrorMessage("半角カナ又は全角英数字が含まれています。");
       setErrorModalIsOpen(true);
       return;
