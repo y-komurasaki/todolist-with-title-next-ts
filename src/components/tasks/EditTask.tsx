@@ -1,7 +1,8 @@
+import DeleteConfirmationModal from "@/modals/DeleteConfirmationModal";
 import ErrorMessageModal from "@/modals/ErrorMessageModal";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editTask, TasksState } from "../../features/Tasks";
+import { deleteTask, editTask, TasksState } from "../../features/Tasks";
 import { Task, ListWithTasks } from "./DisplayTasks";
 
 interface EditTaskProps {
@@ -14,6 +15,7 @@ const EditTask: React.FC<EditTaskProps> = ({ list, task }) => {
   const [editTaskId, setEditTaskId] = useState<string | null>(null);
   const [errorModalIsOpen, setErrorModalIsOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const dispatch = useDispatch();
   const tasks = useSelector((state: TasksState) => state.tasks);
 
@@ -35,6 +37,11 @@ const EditTask: React.FC<EditTaskProps> = ({ list, task }) => {
     if (editInputTaskText.match(/[ｦ-ﾟ０-９]+/)) {
       setErrorMessage("半角カナ又は全角英数字が含まれています。");
       setErrorModalIsOpen(true);
+      return;
+    }
+
+    if (editInputTaskText === "") {
+      setDeleteModalIsOpen(true);
       return;
     }
 
@@ -64,6 +71,11 @@ const EditTask: React.FC<EditTaskProps> = ({ list, task }) => {
     setEditTaskId(null);
   };
 
+  const handleDeleteConfirmation = () => {
+    dispatch(deleteTask({ listId: list.listId, taskId: task.id }));
+    setDeleteModalIsOpen(false);
+  };
+
   return (
     <>
       <div
@@ -89,6 +101,11 @@ const EditTask: React.FC<EditTaskProps> = ({ list, task }) => {
           setErrorMessage("");
         }}
         errorMessage={errorMessage}
+      />
+      <DeleteConfirmationModal
+        modalIsOpen={deleteModalIsOpen}
+        closeModal={() => setDeleteModalIsOpen(false)}
+        handleDeleteConfirmation={handleDeleteConfirmation}
       />
     </>
   );
