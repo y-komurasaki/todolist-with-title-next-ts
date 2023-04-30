@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editTaskList } from "@/features/Tasks";
+import ErrorMessageModal from "@/modals/ErrorMessageModal";
 
 interface List {
   listId: string;
@@ -14,6 +15,8 @@ interface Props {
 const EditTaskList = ({ list }: Props): JSX.Element => {
   const [editListTitleText, setEditListTitleText] = useState<string>("");
   const [editListId, setEditListId] = useState<string | null>(null);
+  const [errorModalIsOpen, setErrorModalIsOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
   const tasks = useSelector(
     (state: { tasks: { taskLists: List[] } }) => state.tasks
@@ -34,6 +37,8 @@ const EditTaskList = ({ list }: Props): JSX.Element => {
     e.preventDefault();
 
     if (editListTitleText.match(/[ｦ-ﾟ０-９]+/)) {
+      setErrorMessage("半角カナ又は全角英数字が含まれています。");
+      setErrorModalIsOpen(true);
       return;
     }
 
@@ -43,6 +48,8 @@ const EditTaskList = ({ list }: Props): JSX.Element => {
     );
 
     if (isExistingList) {
+      setErrorMessage("同じタイトルのタスクリストが既に存在します。");
+      setErrorModalIsOpen(true);
       return;
     }
 
@@ -62,23 +69,33 @@ const EditTaskList = ({ list }: Props): JSX.Element => {
   };
 
   return (
-    <div
-      className="flex justify-center text-2xl p-3 mb-1 text-center font-bold tracking-wider"
-      onClick={editTitleClick}
-    >
-      {editListId === list.listId ? (
-        <form onSubmit={editTitleDataSubmit}>
-          <input
-            type="text"
-            id="edit-list-title"
-            onChange={editTitleTextChange}
-            value={editListTitleText}
-          />
-        </form>
-      ) : (
-        <p className="mr-5">{list.title}</p>
-      )}
-    </div>
+    <>
+      <div
+        className="flex justify-center text-2xl p-3 mb-1 text-center font-bold tracking-wider"
+        onClick={editTitleClick}
+      >
+        {editListId === list.listId ? (
+          <form onSubmit={editTitleDataSubmit}>
+            <input
+              type="text"
+              id="edit-list-title"
+              onChange={editTitleTextChange}
+              value={editListTitleText}
+            />
+          </form>
+        ) : (
+          <p className="mr-5">{list.title}</p>
+        )}
+      </div>
+      <ErrorMessageModal
+        modalIsOpen={errorModalIsOpen}
+        closeModal={() => {
+          setErrorModalIsOpen(false);
+          setErrorMessage("");
+        }}
+        errorMessage={errorMessage}
+      />
+    </>
   );
 };
 
