@@ -27,7 +27,7 @@ const AddTaskList = () => {
         placeholder="タイトルを入力"
         onChange={(e) => setNewListTitleText(e.target.value)}
         value={newListTitleText}
-        className="text-2xl text-black-500 font-bold text-center mb-5 border 300 border-black "
+        className="text-2xl text-black-500 font-bold text-center mb-5 border border-black "
       />
 
       <button className="listAddButton" onClick={addTaskListClick}>

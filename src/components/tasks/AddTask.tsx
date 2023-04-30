@@ -69,7 +69,7 @@ const AddTask: React.FC<AddTaskProps> = ({ list }) => {
           })
         }
         value={newTaskText[list.listId] || ""}
-        className="text-1xl text-black-300  text-center mb-5 border 300 border-black "
+        className="text-1xl text-black-300  text-center mb-5 border border-black "
       />
       <button className="addTodoButton" onClick={addTaskClick}>
         追加
